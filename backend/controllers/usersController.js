@@ -42,13 +42,14 @@ const loginUser = asyncHandler(async (req, res) => {
     const userExist = User.findOne({email});
 
     if(userExist && (await bcrypt.compare(password, userExist.password))){
-        const token = jwt.sign({id: userExist._id, name: userExist.name, email: userExist.email}, process.env.JWT_SECRET, {
+        const token = jwt.sign({id: userExist._id, name: userExist.name, email: userExist.email, isAdmin: userExist.isAdmin}, process.env.JWT_SECRET, {
             expiresIn: '30d'
         });
         res.status(200).json({
             _id: userExist._id,
             name: userExist.name,
             email: userExist.email,
+            isAdmin: userExist.isAdmin,
             token
         });
     } else{

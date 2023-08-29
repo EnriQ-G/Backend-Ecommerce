@@ -51,6 +51,17 @@ const updateProduct = asyncHandler(async(req,res)=>{
     }
 })
 
+// const updateProductStock = asyncHandler(async(req,res)=>{
+//     const product = await Product.findById(req.params.id);
+//     const newStock = product.stock - req.body.qty;
+
+//     if(!product){
+//         res.status(404);
+//         throw new Error('Producto no encontrado');
+//     }else{
+//         const updateProductStock = await Product.findByIdAndUpdate()
+
+
 module.exports = {
     getProducts,
     getProductById,
