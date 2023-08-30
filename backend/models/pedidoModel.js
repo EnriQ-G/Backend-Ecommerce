@@ -5,18 +5,14 @@ const pedidoSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'User'
+    }, 
+    name: {type: String, required: true},
+    id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Product'
     },
-    pedidoItems: [
-        {
-            name: {type: String, required: true},
-            product: {
-                type: mongoose.Schema.Types.ObjectId,
-                required: true,
-                ref: 'Product'
-            },
-            qty: {type: Number, required: true}
-        }
-    ],
+    qty: {type: Number, required: true},
 }, {
     timestamps: true
 })

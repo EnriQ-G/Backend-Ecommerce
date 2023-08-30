@@ -1,8 +1,9 @@
 const asyncHandler = require('express-async-handler');
 const Pedido = require('../models/pedidoModel');
+const Product = require('../models/productModel');
 
 const getPedidos = asyncHandler(async(req,res)=>{
-    const pedidos = await Pedido.find({});
+    const pedidos = await Pedido.find({user: req.user.id});
     res.json(pedidos);
 })
 
@@ -17,21 +18,38 @@ const getPedidoById = asyncHandler(async(req,res)=>{
 })
 
 const setPedido = asyncHandler(async(req,res)=>{
-    if(!req.body.user|| !req.body.pedidoItems){
+    if(!req.body.name || !req.body.id || !req.body.qty){
         res.status(400);
         throw new Error('Es necesario ingresar todos los datos');
     }
-    const pedido = Pedido.create({
-        user: req.body.user,
-        pedidoItems: req.body.pedidoItems
+    const pedido = await Pedido.create({
+        user: req.user.id,
+        name: req.body.name,
+        id: req.body.id,
+        qty: req.body.qty
     })
-    res.status(201).json(pedido);
+    if(pedido){
+        product = await Product.findById(req.body.id);
+
+        if (!product) {
+            res.status(404);
+            throw new Error('Producto no encontrado');
+        } else {
+            const newStock = Math.max(0, product.stock - req.body.qty);
+            const updatedProduct = await Product.findByIdAndUpdate(
+                req.body.id,
+                { $set: { stock: newStock } },
+                { new: true }
+            );   
+            res.json({ message1: 'Pedido creado correctamente', pedido, message:'Stock actualizado correctamente', updatedProduct  });
+        }
+    }
 })
 
 const deletePedido = asyncHandler(async(req,res)=>{
     const pedido = await Pedido.findById(req.params.id);
     if(pedido){
-        await pedido.remove();
+        await pedido.deleteOne();
         res.json({message: 'Pedido eliminado'});
     }else{
         res.status(404);
@@ -45,8 +63,8 @@ const updatePedido = asyncHandler(async(req,res)=>{
         res.status(404);
         throw new Error('Pedido no encontrado');
     }else{
-        const updatedProduct = await Product.findByIdAndUpdate(req.params.id, req.body, {new:true})
-        res.json(updatedProduct);
+        const updatedPedido = await Pedido.findByIdAndUpdate(req.params.id, req.body, {new:true})
+        res.json(updatedPedido);
     }
 })
 

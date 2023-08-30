@@ -21,10 +21,10 @@ const setProduct = asyncHandler(async(req,res)=>{
         res.status(400);
         throw new Error('Es necesario ingresar todos los datos');
     }
-    const product = Product.create({
-        name: 'Sample name',
-        price: 0,
-        stock: 0
+    const product = await Product.create({
+        name: req.body.name,
+        price: req.body.price,
+        stock: req.body.stock
     })
     res.status(201).json(product);
 })
@@ -32,7 +32,7 @@ const setProduct = asyncHandler(async(req,res)=>{
 const deleteProduct = asyncHandler(async(req,res)=>{
     const product = await Product.findById(req.params.id);
     if(product){
-        await product.remove();
+        await product.deleteOne();
         res.json({message: 'Product removed'});
     }else{
         res.status(404);
@@ -50,17 +50,6 @@ const updateProduct = asyncHandler(async(req,res)=>{
         res.json(updateProduct);
     }
 })
-
-// const updateProductStock = asyncHandler(async(req,res)=>{
-//     const product = await Product.findById(req.params.id);
-//     const newStock = product.stock - req.body.qty;
-
-//     if(!product){
-//         res.status(404);
-//         throw new Error('Producto no encontrado');
-//     }else{
-//         const updateProductStock = await Product.findByIdAndUpdate()
-
 
 module.exports = {
     getProducts,
