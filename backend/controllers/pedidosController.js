@@ -36,7 +36,7 @@ const setPedido = asyncHandler(async(req,res)=>{
             throw new Error('Producto no encontrado');
         } else {
             const newStock = Math.max(0, product.stock - req.body.qty);
-            const updatedProduct = await Product.findByIdAndUpdate(
+            const updatedProduct = await Product.findByIdAndUpdate( //find({name: req.body.name})
                 req.body.id,
                 { $set: { stock: newStock } },
                 { new: true }
