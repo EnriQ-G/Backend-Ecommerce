@@ -20,6 +20,7 @@ app.use('/api/users', require('./routes/usersRoutes'));
 app.use('/api/products', require('./routes/productRoutes'));
 app.use('/api/pedidos', require('./routes/pedidosRoutes'));
 app.use('/api/tareas', require('./routes/tareasRoutes'));
+app.use('/api/comments', require('./routes/commentRoutes'));
 
 app.use(errorHandler); 
 
