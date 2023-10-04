@@ -22,26 +22,22 @@ const setComment = asyncHandler(async (req, res) => {
     res.status(201).json(comment)
 })
 
-
 const deleteComment = asyncHandler(async (req, res) => {
-
-    const comment = await Comment.findById(req.params.id)
+    const comment = await Comment.findById(req.params.id);
 
     if (!comment) {
-        res.status(404)
-        throw new Error('El comentario no fue encontrado')
+        res.status(404);
+        throw new Error('El comentario no fue encontrado');
     }
 
     if (comment.user.toString() !== req.user.id) {
-        res.status(401)
-        throw new Error('Usuario no autorizado')
+        res.status(401);
+        throw new Error('Usuario no autorizado');
     } else {
-        comment.deleteOne()
-        res.status(200).json({ id: comment._id })
+        await comment.deleteOne(); // Use await to properly delete the comment
+        res.status(200).json({ id: comment._id });
     }
-
-
-})
+});
 
 module.exports = {
     getComments,

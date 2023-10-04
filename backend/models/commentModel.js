@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const commentSchema = mongoose.Schema({
     movie: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         required: true,
         ref: 'Movie'
         },
