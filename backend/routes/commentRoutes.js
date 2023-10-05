@@ -5,6 +5,6 @@ const { protect } = require('../middleware/authMiddleware')
 
 router.get('/:id', getComments)
 router.post('/', setComment)
-router.delete('/:id', protect, deleteComment)
+router.delete('/:id', deleteComment)
 
 module.exports = router
