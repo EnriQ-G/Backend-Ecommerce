@@ -17,7 +17,7 @@ const setComment = asyncHandler(async (req, res) => {
     const comment = await Comment.create({
         movie: req.body.movie,
         texto: req.body.texto,
-        // user: req.user.id
+        user: req.user.id
     })
     res.status(201).json(comment)
 })
