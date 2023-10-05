@@ -3,7 +3,7 @@ const Comment = require('../models/commentModel')
 
 const getComments = asyncHandler(async (req, res) => {
 
-    const comments = await Comment.find({ movie: req.params.id })
+    const comments = await Comment.find({ movie: req.params.movie })
 
     res.status(200).json(comments)
 })
