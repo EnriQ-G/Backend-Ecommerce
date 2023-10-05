@@ -3,7 +3,7 @@ const Comment = require('../models/commentModel')
 
 const getComments = asyncHandler(async (req, res) => {
 
-    const comments = await Comment.find({ movie: req.params.movie })
+    const comments = await Comment.find({ movie: req.body.movie })
 
     res.status(200).json(comments)
 })
@@ -17,7 +17,7 @@ const setComment = asyncHandler(async (req, res) => {
     const comment = await Comment.create({
         movie: req.body.movie,
         texto: req.body.texto,
-        user: req.user.id
+        // user: req.user.id
     })
     res.status(201).json(comment)
 })

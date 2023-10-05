@@ -6,11 +6,11 @@ const commentSchema = mongoose.Schema({
         required: true,
         ref: 'Movie'
         },
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'User'
-    },
+    // user: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     required: true,
+    //     ref: 'User'
+    // },
     texto: {
         type: String,
         required: [true, 'Por favor escribe tu comentario']
