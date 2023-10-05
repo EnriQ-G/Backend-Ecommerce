@@ -28,11 +28,11 @@ const deleteComment = asyncHandler(async (req, res) => {
     if (!comment) {
         res.status(404);
         throw new Error('El comentario no fue encontrado');
-    }
+    // }
 
-    if (comment.user.toString() !== req.user.id) {
-        res.status(401);
-        throw new Error('Usuario no autorizado');
+    // if (comment.user.toString() !== req.user.id) {
+    //     res.status(401);
+    //     throw new Error('Usuario no autorizado');
     } else {
         await comment.deleteOne(); // Use await to properly delete the comment
         res.status(200).json({ id: comment._id });
