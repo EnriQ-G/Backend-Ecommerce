@@ -11,7 +11,8 @@ const donate = asyncHandler(async (req, res) => {
 
     const donation = await Donation.create({
         user: req.user._id,
-        amount: req.body.amount
+        amount: req.body.amount,
+        comment: req.body.comment
     });
 
     if(donation){

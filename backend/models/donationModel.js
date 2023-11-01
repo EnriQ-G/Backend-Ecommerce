@@ -9,6 +9,10 @@ const donationSchema = new mongoose.Schema({
     amount: {
         type: Number,
         required: [true, 'El monto es requerido']
+    },
+    comment: {
+        type: String,
+        required: false
     }
 },{
     timestamps: true
