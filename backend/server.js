@@ -26,4 +26,7 @@ app.use('/api/donations', require('./routes/donationRoutes'));
 
 app.use(errorHandler); 
 
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
+
 app.listen (port, () => console.log (`Server running on port ${port}`.cyan.underline.bold));
