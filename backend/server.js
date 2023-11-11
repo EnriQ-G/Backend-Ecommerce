@@ -6,6 +6,8 @@ const connectDB = require ('./config/db');
 const port = process.env.PORT || 5000;
 const cors = require('cors');
 
+dot.env.config();
+
 connectDB();
 //test
 
@@ -25,8 +27,5 @@ app.use('/api/donations', require('./routes/donationRoutes'));
 
 
 app.use(errorHandler); 
-
-const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '.env') });
 
 app.listen (port, () => console.log (`Server running on port ${port}`.cyan.underline.bold));
