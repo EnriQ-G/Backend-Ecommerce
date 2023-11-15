@@ -17,17 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 app.use('/api/users', require('./routes/usersRoutes'));
-app.use('/api/products', require('./routes/productRoutes'));
-app.use('/api/pedidos', require('./routes/pedidosRoutes'));
-app.use('/api/tareas', require('./routes/tareasRoutes'));
-app.use('/api/comments', require('./routes/commentRoutes'));
 app.use('/api/donations', require('./routes/donationRoutes'));
-app.use ('/api/items', (req,res) => {
-    return res.status(200).json({
-        message: 'Nueva funcionalidad agregada'
-    });
-});
-
 
 app.use(errorHandler); 
 
